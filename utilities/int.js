@@ -1,7 +1,7 @@
 const GROUP_SIZE = 16;
 const INITIAL_CHAR =
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const MAX_DIGIT = 5;
+const MAX_DIGIT = process.env.MAX_DIGIT;
 const BASE = INITIAL_CHAR.length; // 62
 const MAX_NUM = Math.pow(BASE, MAX_DIGIT) - 1;
 const MIN_NUM = Math.pow(BASE, MAX_DIGIT - 1);
