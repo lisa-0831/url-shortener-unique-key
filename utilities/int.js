@@ -1,9 +1,9 @@
 const GROUP_SIZE = 16;
 const INITIAL_CHAR =
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const MAX_DIGIT = 5;
 const BASE = INITIAL_CHAR.length; // 62
-const MAX_NUM = Math.pow(BASE, MAX_DIGIT);
+const MAX_NUM = Math.pow(BASE, MAX_DIGIT) - 1;
 const MIN_NUM = Math.pow(BASE, MAX_DIGIT - 1);
 
 const shortUrlKeyToPool = (shortUrlKey) => {
@@ -13,11 +13,11 @@ const shortUrlKeyToPool = (shortUrlKey) => {
 };
 
 const getRandomInt = (max, min) => {
-  return Math.floor(Math.random() * max + min);
+  return Math.floor(Math.random() * (max - min) + min);
 };
 
 const getShortUrl = () => {
-  let num = getRandomInt(MAX_NUM, MIN_NUM + 1);
+  let num = getRandomInt(MAX_NUM, MIN_NUM);
   let result = "";
   while (num > 0) {
     let remainder = num % BASE;
