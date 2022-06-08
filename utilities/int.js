@@ -1,3 +1,4 @@
+require("dotenv").config();
 const GROUP_SIZE = 16;
 const INITIAL_CHAR =
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
