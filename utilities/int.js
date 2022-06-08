@@ -1,24 +1,30 @@
 const GROUP_SIZE = 16;
 const INITIAL_CHAR =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-// console.log(INITIAL_CHAR.length);
-// for (let i = 0; i < 4; i++) {
-//   console.log(INITIAL_CHAR.slice(GROUP_SIZE * i, GROUP_SIZE * (i + 1)));
-//   console.log(INITIAL_CHAR.slice(GROUP_SIZE * i, GROUP_SIZE * (i + 1)).length);
-// }
+const MAX_DIGIT = 5;
+const BASE = INITIAL_CHAR.length; // 62
+const MAX_NUM = Math.pow(BASE, MAX_DIGIT);
+const MIN_NUM = Math.pow(BASE, MAX_DIGIT - 1);
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+const shortUrlKeyToPool = (shortUrlKey) => {
+  const firstCharCode = INITIAL_CHAR.indexOf(shortUrlKey[0]);
+  const poolIndex = Math.floor(firstCharCode / GROUP_SIZE);
+  return poolIndex;
+};
 
-function getShortUrl(num) {
-  let = result = "";
+const getRandomInt = (max, min) => {
+  return Math.floor(Math.random() * max + min);
+};
+
+const getShortUrl = () => {
+  let num = getRandomInt(MAX_NUM, MIN_NUM + 1);
+  let result = "";
   while (num > 0) {
-    let remainder = num % 62;
-    num = Math.floor(num / 62);
+    let remainder = num % BASE;
+    num = Math.floor(num / BASE);
     result = INITIAL_CHAR[remainder] + result;
   }
   return result;
-}
+};
 
-module.exports = { getRandomInt, getShortUrl };
+module.exports = { getShortUrl, shortUrlKeyToPool };
