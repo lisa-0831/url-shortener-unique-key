@@ -1,11 +1,12 @@
 config:
-  target: "http://localhost:3000"
+  #target: "http://localhost:3000"
+  target: "http://stylishbe.xyz"
   http:
     pool: 20
     timeout: 20
   phases:
-    - duration: 20
-      arrivalRate: 40
+    - duration: 60
+      arrivalRate: 580 
       name: Shorten a long URL
 scenarios:
   - flow:
