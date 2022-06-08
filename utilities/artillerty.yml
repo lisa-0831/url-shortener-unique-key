@@ -1,0 +1,15 @@
+config:
+  target: "http://localhost:3000"
+  http:
+    pool: 20
+    timeout: 20
+  phases:
+    - duration: 20
+      arrivalRate: 40
+      name: Shorten a long URL
+scenarios:
+  - flow:
+      - post:
+          url: "/shorten"
+          json:
+            originUrl: "https://www.lisa.com"
