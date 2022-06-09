@@ -13,12 +13,12 @@ const shortUrlKeyToPool = (shortUrlKey) => {
   return poolIndex;
 };
 
-const getRandomInt = (max, min) => {
+const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
 const getShortUrl = () => {
-  let num = getRandomInt(MAX_NUM, MIN_NUM);
+  let num = getRandomInt(MIN_NUM, MAX_NUM);
   let result = "";
   while (num > 0) {
     let remainder = num % BASE;
@@ -28,4 +28,4 @@ const getShortUrl = () => {
   return result;
 };
 
-module.exports = { getShortUrl, shortUrlKeyToPool };
+module.exports = { getShortUrl, shortUrlKeyToPool, getRandomInt };

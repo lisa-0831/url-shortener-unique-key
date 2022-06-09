@@ -1,45 +1,38 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
+const NUM_WRITE_DB = process.env.NUM_WRITE_DB;
+const NUM_READ_DB = process.env.NUM_READ_DB;
+const writeConfig = [],
+  readConfig = [];
+for (let i = 0; i < NUM_WRITE_DB; i++) {
+  writeConfig[i] = {
+    host: process.env[`DB_HOST_${i}`],
+    user: process.env[`DB_USER_${i}`],
+    password: process.env[`DB_PASSWORD_${i}`],
+    database: process.env[`DATABASE`],
+    waitForConnections: true,
+    connectionLimit: 20,
+    queueLimit: 0,
+  };
+}
+const writePools = writeConfig.map((config) => mysql.createPool(config));
 
-// create the connection to database
-const pool0 = mysql.createPool({
-  host: process.env.DB_HOST_0,
-  user: process.env.DB_USER_0,
-  password: process.env.DB_PASSWORD_0,
-  database: process.env.DATABASE,
-  waitForConnections: true,
-  connectionLimit: 20,
-  queueLimit: 0,
-});
+for (let i = 0; i < NUM_WRITE_DB; i++) {
+  readConfig[i] = [];
+  for (let j = 0; j < NUM_READ_DB; j++) {
+    readConfig[i][j] = {
+      host: process.env[`DB_HOST_${i}_READ_${j}`],
+      user: process.env[`DB_USER_${i}`],
+      password: process.env[`DB_PASSWORD_${i}`],
+      database: process.env[`DATABASE`],
+      waitForConnections: true,
+      connectionLimit: 20,
+      queueLimit: 0,
+    };
+  }
+}
+const readPools = readConfig.map((config) =>
+  config.map((c) => mysql.createPool(c))
+);
 
-const pool1 = mysql.createPool({
-  host: process.env.DB_HOST_1,
-  user: process.env.DB_USER_1,
-  password: process.env.DB_PASSWORD_1,
-  database: process.env.DATABASE,
-  waitForConnections: true,
-  connectionLimit: 20,
-  queueLimit: 0,
-});
-
-const pool2 = mysql.createPool({
-  host: process.env.DB_HOST_2,
-  user: process.env.DB_USER_2,
-  password: process.env.DB_PASSWORD_2,
-  database: process.env.DATABASE,
-  waitForConnections: true,
-  connectionLimit: 20,
-  queueLimit: 0,
-});
-
-const pool3 = mysql.createPool({
-  host: process.env.DB_HOST_3,
-  user: process.env.DB_USER_3,
-  password: process.env.DB_PASSWORD_3,
-  database: process.env.DATABASE,
-  waitForConnections: true,
-  connectionLimit: 20,
-  queueLimit: 0,
-});
-
-module.exports = { pool0, pool1, pool2, pool3 };
+module.exports = { writePools, readPools };
