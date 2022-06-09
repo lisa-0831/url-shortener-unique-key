@@ -14,12 +14,14 @@ router.get("/:id", async (req, res) => {
   const poolIndex = shortUrlKeyToPool(shortUrlKey);
   const shortUrl = shortUrlPrefix + shortUrlKey;
   const readServerIndex = getRandomInt(0, readPools[0].length);
+  const hostName =
+    readPools[poolIndex][readServerIndex].pool.config.connectionConfig.host;
   const [result] = await Url.getOriginUrl(
     shortUrlKey,
     readPools[poolIndex][readServerIndex]
   );
   const { originUrl } = result;
-  res.status(200).json({ shortUrl, originUrl });
+  res.status(200).json({ shortUrl, originUrl, hostName });
 });
 
 router.post("/shorten", async (req, res) => {
