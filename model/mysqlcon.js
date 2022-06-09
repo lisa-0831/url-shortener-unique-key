@@ -26,7 +26,7 @@ for (let i = 0; i < NUM_WRITE_DB; i++) {
       password: process.env[`DB_PASSWORD_${i}`],
       database: process.env[`DATABASE`],
       waitForConnections: true,
-      connectionLimit: 30,
+      connectionLimit: process.env.CONNECTIONLIMIT,
       queueLimit: 0,
     };
   }
