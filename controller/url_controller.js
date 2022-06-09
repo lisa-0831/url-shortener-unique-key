@@ -21,10 +21,7 @@ router.get("/:id", async (req, res) => {
     readPools[poolIndex][readServerIndex]
   );
   const { originUrl } = result;
-  console.log(
-    `${poolIndex} ${readServerIndex} ${hostName} ${shortUrl} ${originUrl}`
-  );
-  res.status(200).json({ shortUrl, originUrl });
+  res.status(200).json({ shortUrl, originUrl, hostName });
 });
 
 router.post("/shorten", async (req, res) => {
