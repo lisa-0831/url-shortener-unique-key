@@ -13,7 +13,7 @@ router.get("/:id", async (req, res) => {
   const shortUrlKey = req.params.id;
   const poolIndex = shortUrlKeyToPool(shortUrlKey);
   const shortUrl = shortUrlPrefix + shortUrlKey;
-  const readServerIndex = getRandomInt(0, readPools[0].length - 1);
+  const readServerIndex = getRandomInt(0, readPools[0].length);
   const [result] = await Url.getOriginUrl(
     shortUrlKey,
     readPools[poolIndex][readServerIndex]
