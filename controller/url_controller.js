@@ -18,7 +18,6 @@ router.get("/:id", async (req, res) => {
     shortUrlKey,
     readPools[poolIndex][readServerIndex]
   );
-  console.log("currentpool", poolIndex, readServerIndex);
   const { originUrl } = result;
   res.status(200).json({ shortUrl, originUrl });
 });
