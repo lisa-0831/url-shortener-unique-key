@@ -5,12 +5,29 @@ config:
     pool: 20
     timeout: 20
   phases:
-    - duration: 60
-      arrivalRate: 580 
-      name: Shorten a long URL
+    - duration: 5
+      arrivalRate: 500
+      name: Read
+    - duration: 5
+      arrivalRate: 500
+      name: Read
+    - duration: 5
+      arrivalRate: 500
+      name: Read
+    - duration: 5
+      arrivalRate: 500
+      name: Read
 scenarios:
   - flow:
-      - post:
-          url: "/shorten"
-          json:
-            originUrl: "https://www.lisa.com"
+      # - post:
+      #     url: "/shorten"
+      #     json:
+      #       originUrl: "https://www.lisa.com"
+      - get:
+          url: "/1yaH3kT"
+      - get:
+          url: "/whpndyH"
+      - get:
+          url: "/RzX6amh"
+      - get:
+          url: "/i3xR2OZ"
