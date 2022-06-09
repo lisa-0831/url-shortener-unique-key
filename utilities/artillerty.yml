@@ -3,31 +3,19 @@ config:
   target: "http://stylishbe.xyz"
   http:
     pool: 20
-    timeout: 20
+    timeout: 3
   phases:
-    - duration: 5
-      arrivalRate: 500
-      name: Read
-    - duration: 5
-      arrivalRate: 500
-      name: Read
-    - duration: 5
-      arrivalRate: 500
-      name: Read
-    - duration: 5
-      arrivalRate: 500
+    - duration: 60
+      arrivalRate: 150
       name: Read
 scenarios:
   - flow:
-      # - post:
-      #     url: "/shorten"
-      #     json:
-      #       originUrl: "https://www.lisa.com"
-      - get:
-          url: "/1yaH3kT"
-      - get:
-          url: "/whpndyH"
-      - get:
-          url: "/RzX6amh"
-      - get:
-          url: "/i3xR2OZ"
+      - loop:
+          # - log: "Testing {{ $loopElement }}"
+          - get:
+              url: "/{{ $loopElement }}"
+        over:
+          - 1yaH3kT
+          - whpndyH
+          - RzX6amh
+          - i3xR2OZ
