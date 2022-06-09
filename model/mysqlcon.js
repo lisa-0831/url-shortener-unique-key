@@ -11,7 +11,7 @@ for (let i = 0; i < NUM_WRITE_DB; i++) {
     password: process.env[`DB_PASSWORD_${i}`],
     database: process.env[`DATABASE`],
     waitForConnections: true,
-    connectionLimit: 20,
+    connectionLimit: process.env.CONNECTIONLIMIT,
     queueLimit: 0,
   };
 }
@@ -26,13 +26,13 @@ for (let i = 0; i < NUM_WRITE_DB; i++) {
       password: process.env[`DB_PASSWORD_${i}`],
       database: process.env[`DATABASE`],
       waitForConnections: true,
-      connectionLimit: 20,
+      connectionLimit: 30,
       queueLimit: 0,
     };
   }
 }
-const readPools = readConfig.map((config) =>
-  config.map((c) => mysql.createPool(c))
+const readPools = readConfig.map((pool) =>
+  pool.map((config) => mysql.createPool(config))
 );
 
 module.exports = { writePools, readPools };
